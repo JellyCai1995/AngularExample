@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <style>
+            .media-img{
+                width:2em;
+                height:2em;
+                margin-right:1em;
+            }
+            
+            .media{
+                display:flex;
+                flex: column wrap;
+            }
+            
+            .media-content{
+                flex:1;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="media">
+            <img class="media-img" src="https://d33ypg4xwx0n86.cloudfront.net/direct?url=https%3A%2F%2Flogo.clearbit.com%2Fyoutube.com"></img>
+            <div class="media-content">
+                <div class="media-title">
+                    This is title
+                </div>
+                <div class="media-content">
+                    三.同一页面应避免使用相同的 name与id:
+                    低版本IE浏览器有可能会混淆元素的id和name属性， document.getElementById可能获得不期望的元素。
+                    所以在对元素的id与name属性的命名需要非常小心。
+                    一个比较好的实践是，为id和name使用不同的命名法。
+                    四.禁止为了hook脚本，创建无样式信息的class:
+                    不允许class仅仅让JavaScript获取某些元素，class应该具有明确的语义和样式，否则容易导致css class泛滥。
+                    使用id、属性选择器作为 hook 是更好的方式。
+                    五.id和class属性名称规则:
+                    ID和class(类)名总是使用可以反应元素目的和用途的名称。
+                    class属性值不得以样式信息进行命名。
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

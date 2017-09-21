@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_11">
+    <head>
+        <style>
+            body{
+                font-size:12px;
+            }
+            ul{
+                list-style-tyoe:none;
+                width:408px;
+                margin:0px;
+                padding:0px;
+            }
+            ul li{
+               float:left;
+               padding:5px 0px;
+            }
+            ul .add{
+                color:#0026ff;
+            }
+            ul .even{
+                color:#ff0000;
+            }
+            ul .blod{
+                font-weight:bold;
+            }
+            ul li span{
+                width:52px;
+                float:left;
+                padding:0px 10px;
+            }
+            ul .focus{
+                background-color:#cccccc;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div ng-controller="c2_11">
+            
+            <ul>
+                <li ng-class="{{blod}}">
+                    <span>序号</span>
+                    <span>姓名</span>
+                    <span>性别</span>
+                    <span>是否首条</span>
+                    <span>是否尾条</span>
+                </li>
+                
+                <li ng-repeat="item in data"
+                    ng-class-odd="'odd'"
+                    ng-class-even="'even'"
+                    ng-click="click($index)"
+                    ng-class="{focus:$index==focus}"
+                    >
+                    <span>{{$index+1}}</span>
+                    <span>{{item.name}}</span>
+                    <span>{{item.sex}}</span>
+                    <span>{{$first?"是":"否"}}</span>
+                    <span>{{$last?"是":"否"}}</span>
+                </li>
+                
+            </ul>
+            
+        </div>
+        
+        <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>   
+        <script>
+            var a2_11 = angular.module("a2_11",[]);
+            a2_11.controller("c2_11",function($scope){
+                $scope.blod = "blod";
+                $scope.click = function(i){
+                    $scope.focus = i;
+                }
+                $scope.data = [
+                {name:"name1",sex:"男"},
+                {name:"name2",sex:"女"},
+                {name:"name3",sex:"男"},
+                {name:"name4",sex:"女"}]
+            });
+        </script>
+    </body>
+</html>

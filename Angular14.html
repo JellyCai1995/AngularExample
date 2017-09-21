@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	
+	<div ng-app="a4_5" ng-controller="c4_5">
+		<div>
+			{{text}}
+		</div>
+		<input type="button" ng-click="click(2,5)" value="点击">
+	</div>
+
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script type="text/javascript">
+		var a4_5 = angular.module("a4_5",[]);
+		a4_5.factory("sum",function(){
+			return {
+				add: function(a,b){
+					return a+b;
+				}
+			};
+		});
+		a4_5.controller("c4_5",["$scope","sum",function($scope,sum){
+			$scope.click = function(a,b){
+				$scope.text = sum.add(a,b);
+			}
+		}]);
+	</script>
+</body>
+</html>

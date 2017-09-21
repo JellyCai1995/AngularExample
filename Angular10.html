@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_13">
+    <head>
+        
+    </head>
+    <body>
+        <form name="temp_form" ng-submit="save()" ng-controller="c2_13">
+            
+            <div>
+                UserName: <input name="t_name" ng-model="name" type="text" required>
+                <span ng-show="temp_form.t_name.$error.required" > 姓名不能为空 </span>
+            </div>
+            
+            <div>
+                email: <input name="t_email" ng-model="email" type="email" required>
+                <span ng-show="temp_form.t_email.$error.required">请输入邮箱</span>
+                <span ng-show="temp_form.t_email.$error.email">请输入有效邮箱</span>
+            </div>
+            
+            <input type="submit" value="提交" ng-disabled="temp_form.$invalid">
+            
+        </form>
+        <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>   
+        <script>
+            var a2_13 = angular.module("a2_13",[]);
+            a2_13.controller("c2_13",function($scope){
+                $scope.name = "蔡国栋";
+
+                $scope.save = function(){
+                    console.log("提交成功");
+                }
+            });
+        </script>
+    </body>
+</html>

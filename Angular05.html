@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_8">
+    <head>
+        
+    </head>
+    <body>
+        <div ng-controller="c2_8">
+            <div ng-controller="c2_8_1">
+                <span>{{text}}</span>
+                <span>{{childText}}</span>
+                <input type="button" value="click" ng-click="click()">
+            </div>
+        </div>
+        <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>   
+        <script>
+            var a2_8 = angular.module("a2_8",[]);
+            a2_8.controller("c2_8",function($scope){
+                $scope.text = "Hello Angular";
+                $scope.click = function(){
+                    $scope.text = "jellycai";
+                }
+            });
+            a2_8.controller("c2_8_1",function($scope){
+                $scope.childText = "jelllycai123";
+            });            
+        </script>
+    </body>
+</html>

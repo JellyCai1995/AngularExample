@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <style>
+            .content{
+                display:flex;
+                flex-flow:column wrap;
+            }
+            header,footer{
+                flex:0 0 4em;
+                border:1px solid black;
+            }
+            .content-body{
+                display:flex;
+                flex:1;
+                border:1px solid black;
+            }
+            .nav{
+                order:-1;
+                border:1px solid black;
+            }
+            .main{
+                flex:1;
+                border:1px solid black;
+            }
+            .aside,.nav{
+                flex:0 0 6em;
+                border:1px solid black;
+            }
+            
+            @media (max-width: 768px) {
+              .content-body {
+                flex-direction: column;
+                flex: 1;
+              }
+              .nav,
+              .ads,
+              .content-body {
+                flex: auto;
+              }
+            }            
+        </style>
+    </head>
+    <body class="content">
+        <header>#header</header>
+        <div class="content-body">
+            <main class="main">#content</main>
+            <nav class="nav">#left</nav>
+            <aside class="aside">#right</aside>
+        </div>
+        <footer class="footer">#footer</footer>
+    </body>
+</html>

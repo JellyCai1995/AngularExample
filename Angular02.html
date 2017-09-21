@@ -1,0 +1,136 @@
+<html>
+    <head>
+        <style>
+            
+            .body{
+                display:flex;
+                justify-content:center;
+            }
+            
+            .body-content{
+                width:26em;
+            }
+            
+            .item{
+                display:flex;
+                flex-flow:row nowrap;
+                justify-content:space-between;
+                margin-bottom:10px;
+                padding-bottom:10px;
+                border-bottom:1px solid #f0f0f0;
+            }
+            
+            .right{
+                display:flex;
+                flex-flow:column;
+                justify-content:center;
+            }
+            
+            .rightImage{
+                width:6em;
+                height:5em;
+            }
+            
+            .line1{
+                display:flex;
+                flex-flow:row wrap;
+                align-items:center;
+            }
+            
+            .line2{
+                display:flex;
+                flex-flow:column nowrap;
+                margin-top:6px;
+            }
+            
+            .line3{
+                display:flex;
+                flex-flow:row nowrap;
+                align-items:center;
+                margin-top:10px;
+            }
+            
+            .title{
+                font-size:17px;
+            }
+            
+            .content{
+                margin-top:10px;
+                font-size:13px;
+            }
+            
+            .icon{
+                width:40px;
+                height:40px;
+            }
+            
+            .name{
+                font-size:15px;
+                margin-left:7px;
+            }
+            
+            .time{
+                font-size:12px;
+                margin-left:7px;
+            }
+            
+            .typeIcon{
+                width:45px;
+                height:22px;
+            }
+            
+            .infoIcon{
+                font-size:12px;
+            }
+            
+            .infoValue{
+                font-size:12px;
+            }
+            
+            .infoIcon:nth-child(n){
+                margin-left:10px;
+            }
+            
+            .infoValue:nth-child(n){
+                margin-left:3px;
+            }
+            
+            .gapLine{
+                algin-self:center;
+            }
+            
+        </style>
+    </head>
+    <body class="body">
+        <div class="body-content" ng-app="jianshu" ng-controller="jianshuControl">
+            <div class="item" ng-repeat="i in data">
+                <div class="left">
+                    <div class="line1">
+                        <img class="icon" ng-src="{{i.icon}}">
+                        <div class="name">{{i.name}}</div>
+                        <div class="time">{{i.time}}</div>
+                    </div>
+
+                    <div class="line2">
+                        <div class="title">{{i.title}}</div>
+                        <div class="content">{{i.content}}</div>
+                    </div>
+                    
+                    <div class="line3">
+                        <img class="typeIcon" src="typeIcon.png">
+                        <span class="infoIcon">阅读</span><span class="infoValue">{{i.seeValue}}</span>
+                        <span class="infoIcon">评论</span><span class="infoValue">{{i.commitValue}}</span>
+                        <span class="infoIcon">喜欢</span><span class="infoValue">{{i.likeValue}}</span>
+                        <span class="infoIcon">打赏</span><span class="infoValue">{{i.moneyValue}}</span>
+                    </div>
+                </div>
+                <div class="right">
+                    <img class="rightImage" ng-src="{{i.image}}"/>
+                </div>
+            </div>
+        <div>
+        <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+        <script src="jianshu.js"></script>
+        <script src="jianshuControl.js"></script>
+    </body>
+</html>

@@ -1,0 +1,23 @@
+<html>  
+    <head>
+        
+    </head>
+    <body>
+        <div ng-app="" ng-init="a=1;b=2;jelly={name:'jellycai',age:100};computer=['ThinkPad','IMac','Mac mini','Mac pro']">
+            <input type="number" ng-model="a">
+            <input type="number" ng-model="b">
+            <p ng-bind="a"></p>
+            <p ng-bind="b"></p>
+            <p ng-bind="a+b"></p>
+            <p>{{a+b}}</p>
+            <p>{{"name:"+jelly.name+"age:"+jelly.age}}</p>
+            <p>{{computer[2]}}</p>
+            
+            <div ng-repeat="x in computer">
+                <div style="color:red;">{{x}}</div>
+            </div>
+            
+        </div>
+        <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    </body>
+</html>

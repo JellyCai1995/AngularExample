@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_12">
+    <head>
+        
+    </head>
+    <body>
+        
+        <div ng-controller="c2_12">
+            <div ng-show="{{show}}">
+                蔡国栋  
+            </div>
+            
+            <div ng-hide="{{hide}}">
+                JellyCai
+            </div>
+            
+            <ul ng-switch on={{switch}}>
+                <li ng-switch-when="1">1</li>
+                <li ng-switch-when="2">2</li>
+                <li ng-switch-default>更多1</li>
+                <li ng-switch-default>更多2</li>
+            </ul>
+            
+        </div>
+        
+        <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>   
+        <script>
+            var a2_12 = angular.module("a2_12",[]);
+            a2_12.controller("c2_12",function($scope){
+                $scope.show = true;
+                $scope.hide = false;
+                $scope.switch = 3;
+            });
+        </script>
+    </body>
+</html>

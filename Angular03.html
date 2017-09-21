@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_5">
+    <head>
+    </head>
+    <body>
+        <div ng-controller="c2_5">
+            <span>{{show()}}</span>
+        </div>
+        
+        <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>   
+        <script>
+            var a2_5 = angular.module("a2_5",[]);
+            a2_5.controller('c2_5',function($scope){
+                $scope.name = "Jelly";
+                $scope.show = function(){
+                    $scope.name = "JellyCai";
+                    return $scope.name;
+                }
+            });
+        </script> 
+    </body>
+</html>

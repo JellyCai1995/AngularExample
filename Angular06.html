@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_9">
+    <head>
+        
+    </head>
+    <body>
+        <script type="text/ng-template" id="template1">
+            username:{{username}},age:{{age}}
+        </script>
+        <div ng-include src="'template1'" ng-controller="c2_9"></div>
+        <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>   
+        <script>
+            var a2_9 = angular.module("a2_9",[]);
+            a2_9.controller("c2_9",function($scope){
+                $scope.username = "JellyCai";
+                $scope.age = 1000;
+            });
+        </script>
+    </body>
+</html>

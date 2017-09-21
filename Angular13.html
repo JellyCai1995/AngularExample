@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="a3_9">
+<head>
+	<title></title>
+</head>
+<body>
+    
+    <div ng-controller="c3_9_p">
+        <div ng-controller="c3_9_s">
+            <button ng-click="to_child()">向下传递</button>
+            <button ng-click="to_parent()">向上传递</button>
+            <div ng-controller="c3_9_c"></div>
+        </div>
+        <div ng-controller="c3_9_b"></div>
+    </div>
+    
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script type="text/javascript">
+        var a3_9 = angular.module("a3_9",[]);
+        a3_9.controller("c3_9_s",function($scope){
+            $scope.to_child = function(){
+                $scope.$broadcast("event1","事件来源于父级");
+            }
+            $scope.to_parent = function(){
+                $scope.$emit("event2","事件来源于子级");
+            }
+        });
+        a3_9.controller("c3_9_p",function($scope){
+            $scope.$on("event1",function(event,data){
+                console.log("父级中监听到事件:",data);
+            });
+            $scope.$on("event2",function(event,data){
+                console.log("父级中监听到事件:",data);
+            });
+        });
+        a3_9.controller("c3_9_c",function($scope){
+            $scope.$on("event1",function(event,data){
+                console.log("子级中监听到事件:"+data);
+            });
+            $scope.$on("event2",function(event,data){
+                console.log("子级中监听到事件:"+data);
+            });
+        });        
+        a3_9.controller("c3_9_b",function($scope){
+            $scope.$on("event1",function(event,data){
+                console.log("同级中监听到事件:"+data);
+            });
+            $scope.$on("event2",function(event,data){
+                console.log("同级中监听到事件:"+data);
+            });
+        });
+
+	</script>
+</body>
+</html>

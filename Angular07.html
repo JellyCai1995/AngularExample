@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html ng-app="a2_10">
+    <head>
+        
+    </head>
+    <body>
+        <div ng-controller="c2_10">
+            <ul>
+                <li ng-repeat="item in user">
+                    name:{{item.name}},sex:{{item.sex}},index{{$index+1}},是否为最后一个{{$first?'是':'否'}},是否为第一个{{$last?'是':'否'}}
+                </li>
+            </ul>
+        </div>
+        <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>   
+        <script>
+            var a2_10 = angular.module("a2_10",[]);
+            a2_10.controller("c2_10",function($scope){
+                $scope.user = [
+                    {name:"name1",sex:"男"},
+                    {name:"name2",sex:"女"},
+                    {name:"name3",sex:"男"}
+                ];
+            });
+       </script>
+    </body>
+</html>

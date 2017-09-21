@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <style>
+            .content{
+                display:flex;
+                flex-flow: column wrap;
+            }
+            .grid{
+                display:flex;
+                flex-flow: row wrap;
+            }
+            .grid-cell{
+                flex:1;
+                text-align:center;
+                border:1px solid black;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="content">
+            <div class="grid">
+                <div class="grid-cell">1/2</div>
+                <div class="grid-cell">1/2</div>
+            </div>
+            <div class="grid">
+                <div class="grid-cell">1/3</div>
+                <div class="grid-cell">1/3</div>
+                <div class="grid-cell">1/3</div>
+            </div>
+            <div class="grid">
+                <div class="grid-cell">1/4</div>
+                <div class="grid-cell">1/4</div>
+                <div class="grid-cell">1/4</div>
+                <div class="grid-cell">1/4</div>
+            </div>
+            <div class="grid">
+                <div class="grid-cell">默认情况下，项目都排在一条线（又称"轴线"）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。</div>
+                <div class="grid-cell">flex-start：与交叉轴的起点对齐。
+flex-end：与交叉轴的终点对齐。
+center：与交叉轴的中点对齐。
+space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。
+space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。
+stretch（默认值）：轴线占满整个交叉轴。</div>
+            </div>
+        </div>
+    </body>
+</html>
