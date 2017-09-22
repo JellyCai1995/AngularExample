@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html ng-app="a5_7">
+<head>
+	<title></title>
+</head>
+<body>
+	<div ng-view></div>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular-route.min.js"></script>
+	<script type="text/javascript">
+		var stus = [
+			{stuId:"1000",name:"张明明",sex:"女",score:60},
+			{stuId:"1001",name:"李青青",sex:"女",score:80},
+			{stuId:"1002",name:"刘小华",sex:"男",score:90},
+			{stuId:"1003",name:"陈忠忠",sex:"男",score:80}];
+
+		var a5_7 = angular.module("a5_7",["ngRoute"]);
+		a5_7.controller("c5_7_1",["$scope",function($scope){
+			$scope.stus = stus;
+		}]);
+
+		a5_7.controller("c5_7_2",["$scope","$routeParams",function($scope,$routeParams){
+			for(var i = 0;i<stus.length;i++){
+				if(stus[i].stuId == $routeParams.id){
+					$scope.stu = stus[i];
+					break;
+				}
+			}
+		}]);
+
+		a5_7.config(["$routeProvider",function($routeProvider){
+			$routeProvider
+					.when("/",{
+						controller:"c5_7_1",
+						templateUrl:"Angular16-1.html"
+					})
+					.when("/view/:id",{
+						controller:"c5_7_2",
+						templateUrl:"Angular16-2.html",
+						publicAccess:true
+					})
+					.otherwise({
+						redirectTo:"/"
+					});
+		}]);
+
+	</script>
+</body>
+</html>
