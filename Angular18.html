@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="a6_2">
+<head>
+	<title></title>
+</head>
+<body>
+	
+	<div ng-controller="c6_2">
+		<span>{{info("name")}}</span>
+		<span>{{info("sex")}}</span>
+		<span>{{info("age")}}</span>
+	</div>
+
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script type="text/javascript">
+		var a6_2 = angular.module("a6_2",[]);
+		a6_2.factory("$output",function(){
+			var stu = {
+				name:"张三",
+				sex:"男",
+				age:"60"
+			};
+			return stu;
+		});
+		a6_2.controller("c6_2",["$scope","$output",function($scope,$output){
+			$scope.info = function(n){
+				for(_n in $output){ //这里遍历的是属性名
+					if(n == _n){
+						return $output[_n];
+					}
+				}
+			}
+		}]);
+	</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="a6_3">
+<head>
+	<title></title>
+</head>
+<body>
+	
+	<div ng-controller="c6_3">
+		<div>{{output("123")}}</div>
+		<div>{{arr(1)}}</div>
+	</div>
+
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script type="text/javascript">
+		var a6_3 = angular.module("a6_3",[]);
+		a6_3.factory("$output",function(){
+			return {
+				output: function(str){
+					return str;
+				}
+			}; 
+		});
+		a6_3.factory("$arr",function(){
+			return ["JellyCai","Jelly","123"];
+		});
+		a6_3.controller("c6_3",["$scope","$output","$arr",function($scope,$output,$arr){
+			$scope.output = function(str){
+				return $output.output(str);
+			}
+			$scope.arr = function(n){
+				return $arr[n];
+			}
+		}]);
+	</script>
+</body>
+</html>

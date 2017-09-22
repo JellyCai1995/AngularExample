@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="a6_1">
+<head>
+	<title></title>
+</head>
+<body>
+	
+	<div ng-controller="c6_1">
+		<div>
+			{{url}}	
+		</div>
+		<div>
+			<button ng-click="click()">点击</button>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script type="text/javascript">
+		var a6_1 = angular.module("a6_1",[]);
+		a6_1.controller("c6_1",["$scope","$location",function($scope,$location){
+			$scope.click = function(){
+				$scope.url = $location.absUrl();
+			}
+
+		}]);
+	</script>
+</body>
+</html>
