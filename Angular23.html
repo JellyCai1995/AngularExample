@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="a7_3">
+<head>
+	<title></title>
+</head>
+<body>
+	
+	<div ng-controller="c7_3">
+		{{result}}
+		<button ng-click="click()">点击</button>
+	</div>
+
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script type="text/javascript">
+		var a7_3 = angular.module("a7_3",[]);
+		a7_3.controller("c7_3",["$scope","$http",function($scope,$http){
+			$scope.name = {name:"JellyCai"};
+			$scope.click = function(){
+				$http({
+					method:"POST",
+					url:"http://127.0.0.1:8080/4.4/jianshu",
+					params:{
+						name:$scope.name.name
+					},
+					headers:{
+						"Content-Type":"application/x-www-form-urlencoded"
+					},
+					data:{
+						name:$scope.name.name	
+					}
+				}).success(function(data,status,headers,config){
+					$scope.result = data;
+				});
+			}
+		}]);
+	</script>
+</body>
+</html>

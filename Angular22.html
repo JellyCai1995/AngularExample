@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="a7_4">
+<head>
+	<title></title>
+</head>
+<body>
+	
+	<div ng-controller="c7_4">
+		{{result}}
+		<button ng-click="click()">点击发起网络请求</button>
+	</div>
+
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script type="text/javascript">
+		var a7_4 = angular.module("a7_4",[]);
+		a7_4.config(["$httpProvider",function($httpProvider){
+			$httpProvider.defaults.transformRequest = function(obj){
+				var arrStr = [];
+				for(var p in obj){ //解析obj中的属性
+					arrStr.push(encodeURIComponent(p)+"="+encodeURIComponent(obj[p]));
+				}
+				return arrStr.join("&");
+			}
+			$httpProvider.defaults.headers.post = {
+				"Content-Type":"application/x-www-form-urlencoded"
+			}
+		}]);
+
+		a7_4.controller("c7_4",["$scope","$http",function($scope,$http){
+			var postData = {name:"张国荣"};
+			$scope.click = function(){
+				$http.post("http://127.0.0.1:8080/4.4/jianshu",postData)
+					.success(function(data,status,headers,config){
+						$scope.result = data;
+					});
+			}
+		}]);
+
+	</script>
+</body>
+</html>

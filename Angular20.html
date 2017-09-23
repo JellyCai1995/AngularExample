@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app="a6_4">
+<head>
+	<title></title>
+</head>
+<body>
+	
+	<div ng-controller="c6_4">
+		<span>
+			{{name}}{{age}}{{say()}}
+		</span>
+	</div>
+
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script type="text/javascript">
+		var a6_4 = angular.module("a6_4",[]);
+		a6_4.service("$stu",function(){
+			this.name = "JellyCai";
+			this.age = "23";
+			this.say = function(){
+				return this.name + this.age;
+			}
+		});
+		a6_4.controller("c6_4",["$scope","$stu",function($scope,$stu){
+			$scope.name = $stu.name;
+			$scope.age = $stu.age;
+			$scope.say = $stu.say;
+		}]);
+	</script>
+</body>
+</html>

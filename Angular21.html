@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="a6_8">
+<head>
+	<title></title>
+</head>
+<body>
+	<div ng-controller="c6_8">
+		<div>
+			<span>
+				{{name}}
+				{{age}}
+				{{title}}
+			</span>
+		</div>
+	</div>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script type="text/javascript">
+		var a6_8 = angular.module("a6_8",[]);
+		a6_8.factory("$stu",function(){
+			return {
+				name:"jelly",
+				age:23
+			}
+		});
+		a6_8.config(function($provide){
+			$provide.decorator("$stu",function($delegate){
+				$delegate.title = "123";
+				return $delegate;
+			});
+		});
+		a6_8.controller("c6_8",["$scope","$stu",function($scope,$stu){
+			$scope.name = $stu.name;
+			$scope.age = $stu.age;
+			$scope.title = $stu.title;
+		}]);
+	</script>
+</body>
+</html>
