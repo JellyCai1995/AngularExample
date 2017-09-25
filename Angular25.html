@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="a7_9">
+<head>
+	<title></title>
+</head>
+<body>
+	
+	<div ng-controller="c7_9">
+		<div>{{t0}}</div>
+		<div>{{t1}}</div>
+		<div>{{t2}}</div>
+		<input type="button" value="success" ng-click="success()">
+		<input type="button" value="error" ng-click="error()">
+		<input type="button" value="notify" ng-click="notify()">
+	</div>
+
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script type="text/javascript">
+		var a7_9 = angular.module("a7_9",[]);
+		a7_9.controller("c7_9",function($scope,$q){
+			var defer = $q.defer();
+			$scope.success = function(){
+				defer.resolve(1);
+			}
+			$scope.error = function(){
+				defer.reject(1);
+			}
+			$scope.notify = function(){
+				defer.notify(0);
+			}
+			var promise = defer.promise;
+			promise.then(function(n){
+				$scope.t0 = n;
+			},function(n){
+				$scope.t1 = n;
+			},function(n){
+				console.log(n);
+				$scope.t2 = n;
+			});
+		});
+	</script>
+</body>
+</html>
