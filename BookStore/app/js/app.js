@@ -1,5 +1,7 @@
-require("angular");
-require("@uirouter/angularjs");
+import '../css/index.css';
+import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+import angular from 'angular';
+import uirouter from '@uirouter/angularjs'; 
 
 var app = angular.module('app',['ui.router']);
 
@@ -45,6 +47,15 @@ app.config(function($httpProvider){
 	$httpProvider.defaults.headers.post = {
 		"Content-Type":"application/x-www-form-urlencoded"
 	}
+    $httpProvider.interceptors.push(function($window) {
+        return {
+          responseError: function(rejection) {
+          		if(rejection.status = -1){
+          			$window.alert("网络连接异常!");
+          		}
+            }
+        };
+    });
 });
 
 /**
@@ -73,7 +84,7 @@ app.controller('login',function($scope,$http,$state,$window){
 });
 
 /**
-获取数据列表
+获取书籍列表
 */
 app.controller('list',function($scope,$http,$stateParams){
 	var postData = {

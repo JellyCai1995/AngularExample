@@ -1,12 +1,33 @@
-<div>
-	<div>图书管理系统</div>
-	<form name="login" ng-submit="loginSubmit()">
-		账户: <input type="text" name="loginid" ng-model="loginid" required>
-		<span ng-show="login.loginid.$error.required">账户不能为空</span>
-		<br/>
-		密码: <input type="password" name="password" ng-model="password" required>
-		<span ng-show="login.password.$error.required">密码不能为空</span>
-		<br/>
-		<input type="submit" value="登录" ng-disabled="login.$invalid">
-	</form>
-</div>
+<form name="login" class="form-horizontal" ng-submit="loginSubmit()">
+	<div class="form-group">
+		<h3 class="col-sm-12 text-center">用户登录</label>
+	</div>
+	<div class="form-group">
+		<label for="loginid" class="col-sm-3 control-label">账户:</label>
+	    <div class="col-sm-9">
+  			<input class="form-control" type="text" placeholder="数字" name="loginid" ng-model="loginid" required>
+			<span ng-show="login.loginid.$error.required && !login.loginid.$pristine" class="text-danger">账户不能为空</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="loginid" class="col-sm-3 control-label">密码:</label>
+		<div class="col-sm-9">
+			<input class="form-control" type="password" placeholder="6-10位" name="password" ng-model="password" required>	
+			<span ng-show="login.password.$error.required && !login.password.$pristine" class="text-danger">密码不能为空</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-offset-3 col-sm-9">
+			<div class="row">
+				<div class="col-sm-6">
+					<input class="btn btn-info btn-block" type="submit" value="登录" ng-disabled="login.$invalid">	
+				</div>
+				<div class="col-sm-6">
+					<input class="btn btn-default btn-block" type="button" value="注册">	
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+
