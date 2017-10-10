@@ -8,12 +8,12 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="item in listData.data">
+		<tr ng-repeat="item in listData.data" ng-click="selectItem(item)">
 			<td>
 				{{item.id}}
 			</td>
 			<td>
-				{{item.author}}
+				{{item.title}}
 			</td>
 			<td>
 				{{item.author}}
@@ -24,3 +24,12 @@
 		</tr>
 	</tbody>
 </table>
+<ul class="pagination">
+	<li><a>&laquo;</a></li>
+	<li class="active"><a>1</a></li>
+	<li><a>2</a></li>
+	<li><a>3</a></li>
+	<li><a>4</a></li>
+	<li><a>5</a></li>
+	<li><a>&raquo;</a></li>
+</ul>

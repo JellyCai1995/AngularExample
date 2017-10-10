@@ -1,0 +1,42 @@
+<div class="col-md-12 alert alert-warning alert-dimdissible text-center" role="alert" ng-show="showWarning">
+		<strong>账户或密码错误!</strong>
+</div>
+<div class="col-md-12">
+	<form name="login" class="loginPanel col-md-offset-4 col-md-4 panel panel-default form-horizontal" ng-submit="loginSubmit()">
+		<div class="form-group panel-heading text-center">
+			<h4>用户登录</h4>
+		</div>
+		<div class="panel-body">
+			<div class="form-group">
+				<label for="loginid" class="col-md-3 control-label">账户:</label>
+			    <div class="col-md-9">
+		  			<input class="form-control" type="text" placeholder="字母+数字" name="loginid" ng-model="loginid" required>
+					<span ng-show="login.loginid.$error.required && !login.loginid.$pristine" class="text-danger">账户不能为空</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="loginid" class="col-md-3 control-label">密码:</label>
+				<div class="col-md-9">
+					<input class="form-control" type="password" placeholder="6-10位" name="password" ng-model="password" required>	
+					<span ng-show="login.password.$error.required && !login.password.$pristine" class="text-danger">密码不能为空</span>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-offset-3 col-md-9">
+					<div class="row">
+						<div class="col-md-6">
+							<input class="btn btn-info btn-block" type="submit" value="登录" ng-disabled="login.$invalid">	
+						</div>
+						<div class="col-md-6">
+							<input class="btn btn-default btn-block" type="button" value="注册" ui-sref="reg">	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>	
+
+
+
+

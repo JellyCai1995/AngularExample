@@ -1,0 +1,50 @@
+<div class="col-md-12 alert alert-warning alert-dimdissible text-center" role="alert" ng-show="showWarning">
+		<strong>{{showWarningContent}}</strong>
+</div>
+<form name="reg" class="regPanel col-md-offset-4 col-md-4 panel panel-default form-horizontal" ng-submit="regSubmit()">
+	<div class="regTitlePanel form-group panel-heading">
+		<div class="col-md-3 text-left">
+			<span ui-sref="login" class="glyphicon glyphicon-chevron-left"></span>
+		</div>
+		<div class="col-md-offset-2 col-md-7 text-left">
+			<span class="regTitle">快速注册</span>
+		</div>
+	</div>
+	<div class="panel-body">
+		<div class="form-group">
+				<label for="loginid" class="col-md-3 control-label">账户:</label>
+			    <div class="col-md-9">
+		  			<input class="form-control" type="text" placeholder="字母+数字" name="loginid" ng-model="loginid" required>
+					<span ng-show="reg.loginid.$error.required && !reg.loginid.$pristine" class="text-danger">账户不能为空</span>
+				</div>
+		</div>
+		<div class="form-group">
+				<label for="email" class="col-md-3 control-label">邮箱:</label>
+			    <div class="col-md-9">
+		  			<input class="form-control" type="email" placeholder="邮箱" name="email" ng-model="email" required>
+					<span ng-show="reg.email.$error.required && !reg.email.$pristine" class="text-danger">邮箱不能为空</span>
+					<span ng-show="reg.email.$error.email && reg.email.$dirty" class="text-danger">邮箱格式不合法</span>
+				</div>
+		</div>
+		<div class="form-group">
+				<label for="password" class="col-md-3 control-label">密码:</label>
+			    <div class="col-md-9">
+		  			<input class="form-control" type="password" placeholder="6-10位" name="password" ng-model="password" required>
+					<span ng-show="reg.password.$error.required && !reg.password.$pristine" class="text-danger">密码不能为空</span>
+				</div>
+		</div>
+		<div class="form-group">
+				<label for="passwordConfirm" class="col-md-3 control-label">密码:</label>
+			    <div class="col-md-9">
+		  			<input class="form-control" type="password" placeholder="再次输入密码" name="passwordConfirm" ng-model="passwordConfirm" required>
+					<span ng-show="reg.passwordConfirm.$error.required && !reg.passwordConfirm.$pristine" class="text-danger">请再次输入密码</span>
+				</div>
+		</div>
+		<div class="form-group">
+			<div class="col-md-offset-3 col-md-9">
+				<input class="btn btn-info btn-block" type="submit" class="from-control" value="注册" ng-disabled="reg.$invalid">		
+			</div>
+		</div>
+
+	</div>
+</form>
