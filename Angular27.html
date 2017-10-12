@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body ng-app="angular27">
+	<div ts-hello></div>
+	<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+	<script type="text/javascript">
+		var app = angular.module('angular27',[]);
+		app.directive('tsHello',function(){
+			return {
+				restrict: 'EA',
+				template: '<div>hello</div>'
+			}
+		});
+	</script>
+</body>
+</html>

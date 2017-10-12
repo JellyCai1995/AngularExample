@@ -1,1 +1,28 @@
-这里是详情
+<div class="row">
+	<div class="detailTopTitle container-fluid text-center alert alert-info">
+		<div class="col-md-3 text-left">
+			<span ng-click="backPrePage()" class="glyphicon glyphicon-chevron-left"></span>
+		</div>
+		<div class="col-md-6 text-center">
+			详情	
+		</div>
+		
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+			<img class="img-responsive center-block" ng-src="{{detailData.image}}">
+		</div>
+		<div class="detailList col-md-5">
+			<ul class="list-group">
+				<li class="list-group-item">作者: {{detailData.author}}</li>
+				<li class="list-group-item">出版社: {{detailData.press}}</li>
+				<li class="list-group-item">副标题: {{detailData.sonTitle}}</li>
+				<li class="list-group-item">出版年: {{detailData.publishTime}}</li>
+				<li class="list-group-item">页数: {{detailData.pageCount}}</li>
+				<li class="list-group-item">定价: {{detailData.price}}</li>
+			</ul>
+		</div>
+	</div>	
+</div>
+
+

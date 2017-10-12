@@ -531,15 +531,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_bootstrap_dist_css_bootstrap_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__node_modules_bootstrap_dist_css_bootstrap_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_user_js_user_js__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_user_js_user_js__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_user_js_user_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__modules_user_js_user_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_bookshelf_js_bookshelf_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_bookshelf_js_bookshelf_js__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__modules_bookshelf_js_bookshelf_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__modules_bookshelf_js_bookshelf_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_bookdetail_js_bookdetail_js__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_bookdetail_js_bookdetail_js__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_bookdetail_js_bookdetail_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__modules_bookdetail_js_bookdetail_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_js__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_js__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__config_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__router_js__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__router_js__ = __webpack_require__(19);
 
 
 
@@ -594,7 +594,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, ".loginPanel{\r\n\tmargin-top: 100px;\r\n}\r\n\r\n.regPanel{\r\n\tmargin-top: 100px;\r\n}\r\n\r\n.regTitlePanel{\r\n\tdisplay: flex;\r\n\tflex-direction: row;\r\n\tjustify-content: center;\r\n\talign-items: center;\r\n}\r\n\r\n.regTitle{\r\n\tfont-size: 17px;\r\n}", ""]);
+exports.push([module.i, ".loginPanel{\r\n\tmargin-top: 100px;\r\n}\r\n\r\n.regPanel{\r\n\tmargin-top: 100px;\r\n}\r\n\r\n.regTitlePanel{\r\n\tdisplay: flex;\r\n\tflex-direction: row;\r\n\tjustify-content: center;\r\n\talign-items: center;\r\n}\r\n\r\n.regTitle{\r\n\tfont-size: 17px;\r\n}\r\n\r\n.detailList{\r\n\tmargin-top: 50px;\r\n}\r\n\r\n.detailTopTitle{\r\n\tfont-size: 20px;\r\n}", ""]);
 
 // exports
 
@@ -34659,6 +34659,248 @@ $provide.value("$locale", {
 
 /***/ }),
 /* 15 */
+/***/ (function(module, exports) {
+
+
+var appuser = angular.module('user', []);
+
+/**
+注册
+*/
+appuser.controller('reg',function($scope,$http,$state,$timeout){
+	$scope.showWarning = false;
+	$scope.showWarningContent = '';
+
+	$scope.regSubmit = function(){
+		if($scope.password != $scope.passwordConfirm){
+			$scope.showWarningContent = '两次输入的密码不一致！';
+			$scope.showWarning = true;
+			//2秒后提示消失
+			$timeout(function(){
+	            $scope.showWarning = false;
+	        },2000)
+		}
+
+		var postData = {
+			type: 'reg',
+			loginid: $scope.loginid,
+			email: $scope.email,
+			password: $scope.password
+		}
+
+		$http({
+			method: 'POST',
+			url: 'http://127.0.0.1:8080/4.4/book',
+			data: postData
+		}).then(function(response){
+			$scope.regData = response.data;
+			if($scope.regData.code == 1){
+				$state.go('main',{bookType:0});
+			}else{
+				console.log(123);
+				$scope.showWarningContent = '注册失败！';
+				$scope.showWarning = true;
+				//2秒后提示消失
+				$timeout(function(){
+                    $scope.showWarning = false;
+                },2000)
+			}
+		});
+
+		
+	}
+});
+
+/**
+登录
+*/
+appuser.controller('login',function($scope, $http, $state, $timeout){
+	$scope.showWarning = false; //是否显示错误信息
+
+	$scope.loginSubmit = function(){
+		var postData = {
+			type: 'login',
+			loginid: $scope.loginid,
+			password: $scope.password
+		}
+		$http({
+			method: 'POST',
+			url: 'http://127.0.0.1:8080/4.4/book',
+			data: postData
+		}).then(function(response){
+			$scope.loginData = response.data;
+			if($scope.loginData.code == 1){//登录成功
+				$state.go('main',{bookType:0});
+			}else{ //登录失败
+				$scope.showWarning = true;
+				//2秒后提示消失
+				$timeout(function(){
+                    $scope.showWarning = false;
+                },2000)
+			}
+		});
+	}
+});
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+var appshelf = angular.module('bookshelf', []);
+
+/**
+获取书籍列表
+*/
+appshelf.controller('list',function($scope, $http, $state, $stateParams){
+	var postData = {
+		type: 'bookList',
+		bookType: $stateParams.bookType
+	}
+	$http({
+		method: 'POST',
+		url: 'http://127.0.0.1:8080/4.4/book',
+		data: postData
+	}).then(function(response){
+		$scope.listData = response.data;
+	});
+
+	$scope.selectItem = function(item){
+		$state.go('bookdetail',{bookid:item.id});
+	}
+
+});
+
+/**
+书籍类型
+*/
+appshelf.controller('type',function($scope){
+	$scope.tabs = [
+		{
+			tabIndex: 0,
+			tabName:'历史'
+		},
+		{
+			tabIndex: 1,
+			tabName:'科学'
+		}];
+});
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports) {
+
+var appdetail = angular.module('bookdetail',[]);
+appdetail.controller('bookdetail',function($scope,$stateParams,$http){
+	var postData = {
+		type:'bookdetail',
+		bookid:$stateParams.bookid
+	}
+	$http({
+		method:'POST',
+		url:'http://127.0.0.1:8080/4.4/book',
+		data: postData
+	}).then(function(response){
+		$scope.detailData = response.data.data;
+	});
+
+	$scope.backPrePage = function(){
+		history.go(-1);
+	}
+
+});
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+
+var appconfig = angular.module('config', []);
+
+/**
+配置Http
+*/
+appconfig.config(function($httpProvider){
+	$httpProvider.defaults.transformRequest = function(obj){
+		var arrStr = [];
+		for(var p in obj){ //解析obj中的属性
+			arrStr.push(encodeURIComponent(p)+"="+encodeURIComponent(obj[p]));
+		}
+		return arrStr.join("&");
+	}
+	$httpProvider.defaults.headers.post = {
+		"Content-Type":"application/x-www-form-urlencoded"
+	}
+    $httpProvider.interceptors.push(function($window) {
+        return {
+          responseError: function(rejection) {
+          		if(rejection.status = -1){
+          			$window.alert("网络连接异常!");
+          		}
+            }
+        };
+    });
+});
+
+/***/ }),
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs__);
+ 
+
+var approuter = angular.module('router', ['ui.router']);
+
+approuter.config(function($stateProvider,$urlRouterProvider){
+	$urlRouterProvider.otherwise('/login');
+	
+	$stateProvider.state('login',{
+		url: '/',
+		template: __webpack_require__(22),
+		controller: 'login'
+	});
+
+	$stateProvider.state('reg',{
+		url: '/reg',
+		template: __webpack_require__(23),
+		controller: 'reg'
+	});
+	
+	$stateProvider.state('bookdetail',{
+		url: '/bookdetail/{bookid:[0-9]{1,3}}',
+		template: __webpack_require__(24),
+		controller: 'bookdetail'		
+	});
+
+	$stateProvider.state('main',{
+		url: '/{bookType:[0-9]{1,3}}',
+		views: {
+			'': {
+				template: __webpack_require__(25)
+			},
+			'type@main': {
+				template: __webpack_require__(26),
+				controller: 'type'
+			},
+			'list@main': {
+				template: __webpack_require__(27),
+				controller: 'list'
+			},
+			'nav@main': {
+				template: __webpack_require__(28)
+			}
+		}
+		
+	});
+
+});
+
+/***/ }),
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -34669,7 +34911,7 @@ $provide.value("$locale", {
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
 (function (global, factory) {
-     true ? factory(exports, __webpack_require__(3), __webpack_require__(16)) :
+     true ? factory(exports, __webpack_require__(3), __webpack_require__(21)) :
     typeof define === 'function' && define.amd ? define(['exports', 'angular', '@uirouter/core'], factory) :
     (factory((global['@uirouter/angularjs'] = global['@uirouter/angularjs'] || {}),global.angular,global['@uirouter/core']));
 }(this, (function (exports,ng_from_import,_uirouter_core) { 'use strict';
@@ -36677,7 +36919,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 
 /***/ }),
-/* 16 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -44536,282 +44778,46 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 
 /***/ }),
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */
-/***/ (function(module, exports) {
-
-
-var appuser = angular.module('user', []);
-
-/**
-注册
-*/
-appuser.controller('reg',function($scope,$http,$state,$timeout){
-	$scope.showWarning = false;
-	$scope.showWarningContent = '';
-
-	$scope.regSubmit = function(){
-		if($scope.password != $scope.passwordConfirm){
-			$scope.showWarningContent = '两次输入的密码不一致！';
-			$scope.showWarning = true;
-			//2秒后提示消失
-			$timeout(function(){
-	            $scope.showWarning = false;
-	        },2000)
-		}
-
-		var postData = {
-			type: 'reg',
-			loginid: $scope.loginid,
-			email: $scope.email,
-			password: $scope.password
-		}
-
-		$http({
-			method: 'POST',
-			url: 'http://127.0.0.1:8080/4.4/book',
-			data: postData
-		}).then(function(response){
-			$scope.regData = response.data;
-			if($scope.regData.code == 1){
-				$state.go('main',{bookType:0});
-			}else{
-				console.log(123);
-				$scope.showWarningContent = '注册失败！';
-				$scope.showWarning = true;
-				//2秒后提示消失
-				$timeout(function(){
-                    $scope.showWarning = false;
-                },2000)
-			}
-		});
-
-		
-	}
-});
-
-/**
-登录
-*/
-appuser.controller('login',function($scope, $http, $state, $timeout){
-	$scope.showWarning = false; //是否显示错误信息
-
-	$scope.loginSubmit = function(){
-		var postData = {
-			type: 'login',
-			loginid: $scope.loginid,
-			password: $scope.password
-		}
-		$http({
-			method: 'POST',
-			url: 'http://127.0.0.1:8080/4.4/book',
-			data: postData
-		}).then(function(response){
-			$scope.loginData = response.data;
-			if($scope.loginData.code == 1){//登录成功
-				$state.go('main',{bookType:0});
-			}else{ //登录失败
-				$scope.showWarning = true;
-				//2秒后提示消失
-				$timeout(function(){
-                    $scope.showWarning = false;
-                },2000)
-			}
-		});
-	}
-});
-
-
-/***/ }),
-/* 24 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"col-md-12 alert alert-warning alert-dimdissible text-center\" role=\"alert\" ng-show=\"showWarning\">\r\n\t\t<strong>账户或密码错误!</strong>\r\n</div>\r\n<div class=\"col-md-12\">\r\n\t<form name=\"login\" class=\"loginPanel col-md-offset-4 col-md-4 panel panel-default form-horizontal\" ng-submit=\"loginSubmit()\">\r\n\t\t<div class=\"form-group panel-heading text-center\">\r\n\t\t\t<h4>用户登录</h4>\r\n\t\t</div>\r\n\t\t<div class=\"panel-body\">\r\n\t\t\t<div class=\"form-group\">\r\n\t\t\t\t<label for=\"loginid\" class=\"col-md-3 control-label\">账户:</label>\r\n\t\t\t    <div class=\"col-md-9\">\r\n\t\t  \t\t\t<input class=\"form-control\" type=\"text\" placeholder=\"字母+数字\" name=\"loginid\" ng-model=\"loginid\" required>\r\n\t\t\t\t\t<span ng-show=\"login.loginid.$error.required && !login.loginid.$pristine\" class=\"text-danger\">账户不能为空</span>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"form-group\">\r\n\t\t\t\t<label for=\"loginid\" class=\"col-md-3 control-label\">密码:</label>\r\n\t\t\t\t<div class=\"col-md-9\">\r\n\t\t\t\t\t<input class=\"form-control\" type=\"password\" placeholder=\"6-10位\" name=\"password\" ng-model=\"password\" required>\t\r\n\t\t\t\t\t<span ng-show=\"login.password.$error.required && !login.password.$pristine\" class=\"text-danger\">密码不能为空</span>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div class=\"form-group\">\r\n\t\t\t\t<div class=\"col-md-offset-3 col-md-9\">\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t<input class=\"btn btn-info btn-block\" type=\"submit\" value=\"登录\" ng-disabled=\"login.$invalid\">\t\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"col-md-6\">\r\n\t\t\t\t\t\t\t<input class=\"btn btn-default btn-block\" type=\"button\" value=\"注册\" ui-sref=\"reg\">\t\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</form>\r\n</div>\t\r\n\r\n\r\n\r\n\r\n";
 
 /***/ }),
-/* 25 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"col-md-12 alert alert-warning alert-dimdissible text-center\" role=\"alert\" ng-show=\"showWarning\">\r\n\t\t<strong>{{showWarningContent}}</strong>\r\n</div>\r\n<form name=\"reg\" class=\"regPanel col-md-offset-4 col-md-4 panel panel-default form-horizontal\" ng-submit=\"regSubmit()\">\r\n\t<div class=\"regTitlePanel form-group panel-heading\">\r\n\t\t<div class=\"col-md-3 text-left\">\r\n\t\t\t<span ui-sref=\"login\" class=\"glyphicon glyphicon-chevron-left\"></span>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-offset-2 col-md-7 text-left\">\r\n\t\t\t<span class=\"regTitle\">快速注册</span>\r\n\t\t</div>\r\n\t</div>\r\n\t<div class=\"panel-body\">\r\n\t\t<div class=\"form-group\">\r\n\t\t\t\t<label for=\"loginid\" class=\"col-md-3 control-label\">账户:</label>\r\n\t\t\t    <div class=\"col-md-9\">\r\n\t\t  \t\t\t<input class=\"form-control\" type=\"text\" placeholder=\"字母+数字\" name=\"loginid\" ng-model=\"loginid\" required>\r\n\t\t\t\t\t<span ng-show=\"reg.loginid.$error.required && !reg.loginid.$pristine\" class=\"text-danger\">账户不能为空</span>\r\n\t\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"form-group\">\r\n\t\t\t\t<label for=\"email\" class=\"col-md-3 control-label\">邮箱:</label>\r\n\t\t\t    <div class=\"col-md-9\">\r\n\t\t  \t\t\t<input class=\"form-control\" type=\"email\" placeholder=\"邮箱\" name=\"email\" ng-model=\"email\" required>\r\n\t\t\t\t\t<span ng-show=\"reg.email.$error.required && !reg.email.$pristine\" class=\"text-danger\">邮箱不能为空</span>\r\n\t\t\t\t\t<span ng-show=\"reg.email.$error.email && reg.email.$dirty\" class=\"text-danger\">邮箱格式不合法</span>\r\n\t\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"form-group\">\r\n\t\t\t\t<label for=\"password\" class=\"col-md-3 control-label\">密码:</label>\r\n\t\t\t    <div class=\"col-md-9\">\r\n\t\t  \t\t\t<input class=\"form-control\" type=\"password\" placeholder=\"6-10位\" name=\"password\" ng-model=\"password\" required>\r\n\t\t\t\t\t<span ng-show=\"reg.password.$error.required && !reg.password.$pristine\" class=\"text-danger\">密码不能为空</span>\r\n\t\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"form-group\">\r\n\t\t\t\t<label for=\"passwordConfirm\" class=\"col-md-3 control-label\">密码:</label>\r\n\t\t\t    <div class=\"col-md-9\">\r\n\t\t  \t\t\t<input class=\"form-control\" type=\"password\" placeholder=\"再次输入密码\" name=\"passwordConfirm\" ng-model=\"passwordConfirm\" required>\r\n\t\t\t\t\t<span ng-show=\"reg.passwordConfirm.$error.required && !reg.passwordConfirm.$pristine\" class=\"text-danger\">请再次输入密码</span>\r\n\t\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"form-group\">\r\n\t\t\t<div class=\"col-md-offset-3 col-md-9\">\r\n\t\t\t\t<input class=\"btn btn-info btn-block\" type=\"submit\" class=\"from-control\" value=\"注册\" ng-disabled=\"reg.$invalid\">\t\t\r\n\t\t\t</div>\r\n\t\t</div>\r\n\r\n\t</div>\r\n</form>";
 
 /***/ }),
-/* 26 */,
-/* 27 */
+/* 24 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\r\n\t<div class=\"detailTopTitle container-fluid text-center alert alert-info\">\r\n\t\t<div class=\"col-md-3 text-left\">\r\n\t\t\t<span ng-click=\"backPrePage()\" class=\"glyphicon glyphicon-chevron-left\"></span>\r\n\t\t</div>\r\n\t\t<div class=\"col-md-6 text-center\">\r\n\t\t\t详情\t\r\n\t\t</div>\r\n\t\t\r\n\t</div>\r\n\t<div class=\"row\">\r\n\t\t<div class=\"col-md-3\">\r\n\t\t\t<img class=\"img-responsive center-block\" ng-src=\"{{detailData.image}}\">\r\n\t\t</div>\r\n\t\t<div class=\"detailList col-md-5\">\r\n\t\t\t<ul class=\"list-group\">\r\n\t\t\t\t<li class=\"list-group-item\">作者: {{detailData.author}}</li>\r\n\t\t\t\t<li class=\"list-group-item\">出版社: {{detailData.press}}</li>\r\n\t\t\t\t<li class=\"list-group-item\">副标题: {{detailData.sonTitle}}</li>\r\n\t\t\t\t<li class=\"list-group-item\">出版年: {{detailData.publishTime}}</li>\r\n\t\t\t\t<li class=\"list-group-item\">页数: {{detailData.pageCount}}</li>\r\n\t\t\t\t<li class=\"list-group-item\">定价: {{detailData.price}}</li>\r\n\t\t\t</ul>\r\n\t\t</div>\r\n\t</div>\t\r\n</div>\r\n\r\n\r\n";
+
+/***/ }),
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"row\">\r\n\t<div class=\"col-md-12\" ui-view=\"nav\"></div>\r\n</div>\r\n<div class=\"row\">\r\n\t<div class=\"col-md-1\" ui-view=\"type\"></div>\r\n\t<div class=\"col-md-11\" ui-view=\"list\"></div>\r\n</div>";
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-module.exports = "<table class=\"table table-hover\">\r\n\t<thead>\r\n\t\t<tr>\r\n\t\t\t<th>序号</th>\r\n\t\t\t<th>标题</th>\r\n\t\t\t<th>作者</th>\r\n\t\t\t<th>出版时间</th>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t<tr ng-repeat=\"item in listData.data\" ng-click=\"selectItem(item)\">\r\n\t\t\t<td>\r\n\t\t\t\t{{item.id}}\r\n\t\t\t</td>\r\n\t\t\t<td>\r\n\t\t\t\t{{item.title}}\r\n\t\t\t</td>\r\n\t\t\t<td>\r\n\t\t\t\t{{item.author}}\r\n\t\t\t</td>\r\n\t\t\t<td>\r\n\t\t\t\t{{item.publishTime}}\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<ul class=\"pagination\">\r\n\t<li><a>&laquo;</a></li>\r\n\t<li class=\"active\"><a>1</a></li>\r\n\t<li><a>2</a></li>\r\n\t<li><a>3</a></li>\r\n\t<li><a>4</a></li>\r\n\t<li><a>5</a></li>\r\n\t<li><a>&raquo;</a></li>\r\n</ul>";
-
-/***/ }),
-/* 29 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = "<ul class=\"nav nav-pills nav-stacked\"  role=\"navigation\" ng-repeat=\"tab in tabs\">\r\n    <li ui-sref-active=\"active\"><a ui-sref=\"main({bookType:tab.tabIndex})\">{{tab.tabName}}</a></li>\r\n</ul>";
 
 /***/ }),
-/* 30 */
+/* 27 */
 /***/ (function(module, exports) {
 
-var appshelf = angular.module('bookshelf', []);
-
-/**
-获取书籍列表
-*/
-appshelf.controller('list',function($scope, $http, $state, $stateParams){
-	var postData = {
-		type: 'bookList',
-		bookType: $stateParams.bookType
-	}
-	$http({
-		method: 'POST',
-		url: 'http://127.0.0.1:8080/4.4/book',
-		data: postData
-	}).then(function(response){
-		$scope.listData = response.data;
-	});
-
-	$scope.selectItem = function(item){
-		$state.go('bookdetail',{bookid:item.id});
-	}
-
-});
-
-/**
-书籍类型
-*/
-appshelf.controller('type',function($scope){
-	$scope.tabs = [
-		{
-			tabIndex: 0,
-			tabName:'历史'
-		},
-		{
-			tabIndex: 1,
-			tabName:'科学'
-		}];
-});
-
+module.exports = "<table class=\"table table-hover\">\r\n\t<thead>\r\n\t\t<tr>\r\n\t\t\t<th>序号</th>\r\n\t\t\t<th>标题</th>\r\n\t\t\t<th>作者</th>\r\n\t\t\t<th>出版时间</th>\r\n\t\t</tr>\r\n\t</thead>\r\n\t<tbody>\r\n\t\t<tr ng-repeat=\"item in listData.data\" ng-click=\"selectItem(item)\">\r\n\t\t\t<td>\r\n\t\t\t\t{{item.id}}\r\n\t\t\t</td>\r\n\t\t\t<td>\r\n\t\t\t\t{{item.title}}\r\n\t\t\t</td>\r\n\t\t\t<td>\r\n\t\t\t\t{{item.author}}\r\n\t\t\t</td>\r\n\t\t\t<td>\r\n\t\t\t\t{{item.publishTime}}\r\n\t\t\t</td>\r\n\t\t</tr>\r\n\t</tbody>\r\n</table>\r\n<ul class=\"pagination\">\r\n\t<li><a>&laquo;</a></li>\r\n\t<li class=\"active\"><a>1</a></li>\r\n\t<li><a>2</a></li>\r\n\t<li><a>3</a></li>\r\n\t<li><a>4</a></li>\r\n\t<li><a>5</a></li>\r\n\t<li><a>&raquo;</a></li>\r\n</ul>";
 
 /***/ }),
-/* 31 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav class=\"topnav navbar navbar-default\" role=\"navigation\">\r\n\t<div class=\"container-fluid\">\r\n\t\t<a class=\"navbar-header navbar-brand\">网上书城</a>\r\n\t\t<div>\r\n\t\t\t<ul class=\"nav navbar-nav\">\r\n\t\t\t\t<li class=\"active\"><a>书架</a></li>\r\n\t\t\t\t<li><a>阅读咨询</a></li>\r\n\t\t\t</ul>\r\n\t\t</div>\r\n\t\t<div class=\"nav navbar-nav navbar-right\">\r\n\t\t\t<a class=\"navbar-brand glyphicon glyphicon-user\" title=\"个人中心\"></a>\r\n\t\t\t<a class=\"navbar-brand glyphicon glyphicon-plus\" title=\"新增\"></a>\r\n\t\t</div>\r\n\t</div>\r\n</nav>";
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports) {
-
-
-var appconfig = angular.module('config', []);
-
-/**
-配置Http
-*/
-appconfig.config(function($httpProvider){
-	$httpProvider.defaults.transformRequest = function(obj){
-		var arrStr = [];
-		for(var p in obj){ //解析obj中的属性
-			arrStr.push(encodeURIComponent(p)+"="+encodeURIComponent(obj[p]));
-		}
-		return arrStr.join("&");
-	}
-	$httpProvider.defaults.headers.post = {
-		"Content-Type":"application/x-www-form-urlencoded"
-	}
-    $httpProvider.interceptors.push(function($window) {
-        return {
-          responseError: function(rejection) {
-          		if(rejection.status = -1){
-          			$window.alert("网络连接异常!");
-          		}
-            }
-        };
-    });
-});
-
-/***/ }),
-/* 33 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__uirouter_angularjs__);
- 
-
-var approuter = angular.module('router', ['ui.router']);
-
-approuter.config(function($stateProvider,$urlRouterProvider){
-	$urlRouterProvider.otherwise('/login');
-	
-	$stateProvider.state('login',{
-		url: '/',
-		template: __webpack_require__(24),
-		controller: 'login'
-	});
-
-	$stateProvider.state('reg',{
-		url: '/reg',
-		template: __webpack_require__(25),
-		controller: 'reg'
-	});
-	
-	$stateProvider.state('bookdetail',{
-		url: '/bookdetail/{bookid:[0-9]{1,3}}',
-		template: __webpack_require__(35),
-		controller: 'bookdetail'		
-	});
-
-	$stateProvider.state('main',{
-		url: '/{bookType:[0-9]{1,3}}',
-		views: {
-			'': {
-				template: __webpack_require__(27)
-			},
-			'type@main': {
-				template: __webpack_require__(29),
-				controller: 'type'
-			},
-			'list@main': {
-				template: __webpack_require__(28),
-				controller: 'list'
-			},
-			'nav@main': {
-				template: __webpack_require__(31)
-			}
-		}
-		
-	});
-
-});
-
-/***/ }),
-/* 34 */,
-/* 35 */
-/***/ (function(module, exports) {
-
-module.exports = "这里是详情";
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports) {
-
-var appdetail = angular.module('bookdetail',[]);
-
-appdetail.controller('bookdetail',function($scope,$stateParams){
-	console.log($stateParams.bookid);
-});
-
 
 /***/ })
 /******/ ]);
