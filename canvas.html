@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<canvas id="myCanvas" width="200" height="100"></canvas>
+	<canvas id="myCanvas2" width="200" height="100"></canvas>
+	<script>
+		var c = document.getElementById('myCanvas'); //获得canvas元素
+		var cxt = c.getContext('2d');  //获取2dContext
+		cxt.fillStyle='#FF0000'; //设置填充颜色
+		cxt.fillRect(0,0,150,75); //绘制矩形
+
+		var c2 = document.getElementById('myCanvas2');
+		var cxt2 = c2.getContext('2d');
+		cxt2.fillStyle='#FF0000';
+		cxt2.moveTo(30,30); //起点
+		cxt2.lineTo(80,30); //途径
+		cxt2.lineTo(80,80); 
+		cxt2.lineTo(30,80);
+		cxt2.lineTo(30,30);
+		cxt2.stroke();
+
+	</script>
+</body>
+</html>
