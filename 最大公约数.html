@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		
+	 	function f(n,m){	
+			var min = n; //最小数
+			if(min > m){
+				min = m;
+			}
+			var num = Math.abs(n-m);
+
+			if(num === min){
+				return num;
+			}else{
+				return f(min,num); 
+			}
+		}
+
+		console.log(f(92,49));
+
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
